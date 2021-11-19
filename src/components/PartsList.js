@@ -7,7 +7,7 @@ export default function PartsList({ parts }) {
       <div className="card">
         <h3>{p.name}</h3>
         <p>Color: {p.color}</p>
-        <p>Quantity:{p.quantity}</p>
+        <p>Quantity: {p.quantity}</p>
       </div>
     </li>
   ));

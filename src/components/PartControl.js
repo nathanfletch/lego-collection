@@ -3,7 +3,6 @@ import PartsList from "./PartsList.js";
 import PartDetail from "./PartDetail.js";
 import AddPart from "./AddPart.js";
 import BuySet from "./BuySet.js";
-// import { v4 } from "uuid";
 
 export default function PartControl() {
   const [page, setPage] = React.useState("list"); //list, detail, add, buy
