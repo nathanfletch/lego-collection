@@ -3,20 +3,22 @@ import PartsList from "./PartsList.js";
 import PartDetail from "./PartDetail.js";
 import AddPart from "./AddPart.js";
 import BuySet from "./BuySet.js";
+import { useLocalStorageState } from "../custom-hooks.js";
 
 export default function PartControl() {
   const [page, setPage] = React.useState("list"); //list, detail, add, buy
-  const [parts, setParts] = React.useState([
+  //custom hook combining useState and useEffect:
+  const [parts, setParts] = useLocalStorageState("parts", [
     {
       name: "Brick 1 x 1",
       quantity: 1,
-      color: "black",
+      color: "Black",
       id: "4507511",
     },
   ]);
   const [selectedPart, setSelectedPart] = React.useState(null);
 
-  //newParts is an array 
+  //newParts is an array
   function addOrUpdate(newParts) {
     //shallow copy of state - we can freely mutate the copy with .slice or .push without mutating actual state
     let partsCopy = [...parts];
@@ -33,7 +35,7 @@ export default function PartControl() {
         };
         if (updatedPart.quantity <= 0) {
           //delete:
-          partsCopy = partsCopy.splice(partIndex, 1)
+          partsCopy = partsCopy.splice(partIndex, 1);
         } else {
           //update: assign updated object to the copied array at the found index
           partsCopy[partIndex] = updatedPart;
