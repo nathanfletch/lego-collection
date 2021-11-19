@@ -25,7 +25,8 @@ export default function PartControl() {
 
     newParts.forEach((part) => {
       let partIndex = partsCopy.findIndex(
-        (p) => p.id === part.id || p.name === part.name
+        (p) =>
+          p.id === part.id || (p.name === part.name && p.color === part.color)
       );
       if (partIndex >= 0) {
         //make a shallow copy of the object at the found index and update the quantity
@@ -48,12 +49,17 @@ export default function PartControl() {
     setParts(partsCopy);
     setPage("list");
   }
+  function reset() {
+    setParts([]);
+    setPage("list");
+  }
 
   return (
     <div>
       <button onClick={() => setPage("list")}>View Collection</button>
       <button onClick={() => setPage("add")}>Add a Part</button>
       <button onClick={() => setPage("buy")}>Buy a Set</button>
+      <button onClick={reset}>Reset Collection</button>
       {page === "list" ? (
         <PartsList
           parts={parts}
