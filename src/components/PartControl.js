@@ -16,28 +16,21 @@ export default function PartControl() {
     },
   ]);
 
-  function handleAdd(event) {
-    const newPart = {
-      name: "Brick 1 x 1",
-      quantity: 1,
-      color: "black",
-      id: 4507511,
-    };
+  function handleAddButtonClick(event) {
     setPage("add");
-    setParts([...parts, newPart]);
   }
-  function handleBuy(event) {
-    setPage("buy");
-  }
+  // function handleBuyButtonClick(event) {
+  //   setPage("buy");
+  // }
 
   return (
     <div>
-      <button onClick={handleAdd}>Add A Part</button>
-      <button onClick={handleBuy}>Buy A Set</button>
+      <button onClick={handleAddButtonClick}>Add a Part</button>
+      <button onClick={() => setPage("buy")}>Buy a Set</button>
       {page === "list" ? (
         <PartsList parts={parts} />
       ) : page === "add" ? (
-        <AddPart />
+        <AddPart setParts={setParts} setPage={setPage} />
       ) : page === "detail" ? (
         <PartDetail />
       ) : page === "buy" ? (
