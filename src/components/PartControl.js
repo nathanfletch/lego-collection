@@ -51,6 +51,7 @@ export default function PartControl() {
 
   return (
     <div>
+      <button onClick={() => setPage("list")}>View Collection</button>
       <button onClick={() => setPage("add")}>Add a Part</button>
       <button onClick={() => setPage("buy")}>Buy a Set</button>
       {page === "list" ? (
@@ -64,7 +65,7 @@ export default function PartControl() {
       ) : page === "detail" ? (
         <PartDetail selectedPart={selectedPart} />
       ) : page === "buy" ? (
-        <BuySet />
+        <BuySet addOrUpdate={addOrUpdate} />
       ) : null}
     </div>
   );

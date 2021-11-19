@@ -1,16 +1,31 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-export default function BuySet() {
+export default function BuySet({ addOrUpdate }) {
   function handleSubmit(event) {
     event.preventDefault();
     const setNum = event.target.setNum.value || 11717;
     console.log(setNum);
     fetch(
       `https://rebrickable.com/api/v3/lego/sets/${setNum}-1/parts/?key=${process.env.REACT_APP_API_KEY}&inc_part_details=1&inc_color_details=0`
-    ).then(
-      (newParts) => console.log(newParts),
-      (error) => console.log(error)
-    );
+    )
+      .then((response) => response.json())
+      .then(
+        (jsonResponse) => {
+          // console.log(newParts)
+          const newParts = jsonResponse.results.map((result) => {
+            return {
+              id: result.id,
+              name: result.part.name,
+              color: result.color.name,
+              quantity: result.quantity,
+            };
+          });
+          console.log(newParts);
+          addOrUpdate(newParts);
+        },
+        (error) => console.log(error)
+      );
   }
   return (
     <div>
@@ -23,3 +38,7 @@ export default function BuySet() {
     </div>
   );
 }
+
+BuySet.propTypes = {
+  addOrUpdate: PropTypes.func,
+};
