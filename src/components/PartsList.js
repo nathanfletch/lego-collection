@@ -1,10 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default function PartsList({ parts }) {
+export default function PartsList({ parts, setSelectedPart, setPage }) {
+  function handleClick(event) {
+    console.log(event.target.id);
+    const selectedPart = parts.find((p) => event.target.id == p.id);
+    console.log(selectedPart);
+    setSelectedPart(selectedPart);
+    setPage("detail");
+  }
+
   const partsList = parts.map((p) => (
-    <li style={{ listStyle: "none" }} key={p.id}>
-      <div className="card">
+    <li onClick={handleClick} style={{ listStyle: "none" }} key={p.id}>
+      <div id={p.id} className="card">
         <h3>{p.name}</h3>
         <p>Color: {p.color}</p>
         <p>Quantity: {p.quantity}</p>
@@ -21,4 +29,6 @@ export default function PartsList({ parts }) {
 
 PartsList.propTypes = {
   parts: PropTypes.array,
+  setSelectedPart: PropTypes.func,
+  setPage: PropTypes.func,
 };

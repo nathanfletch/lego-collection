@@ -3,13 +3,19 @@ import PropTypes from "prop-types";
 import { v4 } from "uuid";
 
 export default function AddPart({ setParts, setPage }) {
+  //control form input
+  //prevent empty submit - disable submit button
+  //display red required asterisk
   function handleSubmit(event) {
+    event.preventDefault();
+
     const newPart = {
       name: event.target.name.value,
-      quantity: event.target.quantity.value,
+      quantity: parseInt(event.target.quantity.value),
       color: event.target.color.value,
       id: v4(),
     };
+    
     setParts((prevParts) => [...prevParts, newPart]);
     setPage("list");
   }

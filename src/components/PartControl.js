@@ -14,24 +14,22 @@ export default function PartControl() {
       id: 4507511,
     },
   ]);
-
-  function handleAddButtonClick(event) {
-    setPage("add");
-  }
-  // function handleBuyButtonClick(event) {
-  //   setPage("buy");
-  // }
+  const [selectedPart, setSelectedPart] = React.useState(null);
 
   return (
     <div>
-      <button onClick={handleAddButtonClick}>Add a Part</button>
+      <button onClick={() => setPage("add")}>Add a Part</button>
       <button onClick={() => setPage("buy")}>Buy a Set</button>
       {page === "list" ? (
-        <PartsList parts={parts} />
+        <PartsList
+          parts={parts}
+          setSelectedPart={setSelectedPart}
+          setPage={setPage}
+        />
       ) : page === "add" ? (
         <AddPart setParts={setParts} setPage={setPage} />
       ) : page === "detail" ? (
-        <PartDetail />
+        <PartDetail selectedPart={selectedPart} />
       ) : page === "buy" ? (
         <BuySet />
       ) : null}
