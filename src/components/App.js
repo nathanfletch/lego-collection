@@ -1,9 +1,11 @@
+import Header from "./Header.js";
+import PartControl from "./PartControl.js";
+
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Lego Collection</h1>
-      </header>
+      <Header />
+      <PartControl />
     </div>
   );
 }
