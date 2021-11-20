@@ -36,7 +36,8 @@ export default function PartControl() {
         };
         if (updatedPart.quantity <= 0) {
           //delete:
-          partsCopy = partsCopy.splice(partIndex, 1);
+          console.log("deleting", partIndex);
+          partsCopy.splice(partIndex, 1);
         } else {
           //update: assign updated object to the copied array at the found index
           partsCopy[partIndex] = updatedPart;
@@ -69,7 +70,7 @@ export default function PartControl() {
       ) : page === "add" ? (
         <AddPart addOrUpdate={addOrUpdate} setPage={setPage} />
       ) : page === "detail" ? (
-        <PartDetail selectedPart={selectedPart} />
+        <PartDetail selectedPart={selectedPart} addOrUpdate={addOrUpdate} />
       ) : page === "buy" ? (
         <BuySet addOrUpdate={addOrUpdate} />
       ) : null}
