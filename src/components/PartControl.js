@@ -3,6 +3,7 @@ import PartsList from "./PartsList.js";
 import PartDetail from "./PartDetail.js";
 import AddPart from "./AddPart.js";
 import BuySet from "./BuySet.js";
+import ErrorBoundary from "./ErrorBoundary.js";
 import { useLocalStorageState } from "../custom-hooks.js";
 
 export default function PartControl() {
@@ -72,7 +73,9 @@ export default function PartControl() {
       ) : page === "detail" ? (
         <PartDetail selectedPart={selectedPart} addOrUpdate={addOrUpdate} />
       ) : page === "buy" ? (
-        <BuySet addOrUpdate={addOrUpdate} />
+        <ErrorBoundary>
+          <BuySet addOrUpdate={addOrUpdate} />
+        </ErrorBoundary>
       ) : null}
     </div>
   );

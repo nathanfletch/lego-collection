@@ -10,9 +10,8 @@ export default function BuySet({ addOrUpdate }) {
       `https://rebrickable.com/api/v3/lego/sets/${setNum}-1/parts/?key=${process.env.REACT_APP_API_KEY}&inc_part_details=1&inc_color_details=0`
     )
       .then((response) => response.json())
-      .then(
-        (jsonResponse) => {
-          // console.log(newParts)
+      .then((jsonResponse) => {
+        if (jsonResponse) {
           const newParts = jsonResponse.results.map((result) => {
             return {
               id: result.id,
@@ -23,9 +22,11 @@ export default function BuySet({ addOrUpdate }) {
           });
           console.log(newParts);
           addOrUpdate(newParts);
-        },
-        (error) => console.log(error)
-      );
+        }
+      })
+      .catch((error) => {
+        throw new Error(error);
+      });
   }
   return (
     <div>
