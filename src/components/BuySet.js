@@ -7,11 +7,17 @@ export default function BuySet({ addOrUpdate }) {
     const setNum = event.target.setNum.value || 11717;
     console.log(setNum);
     fetch(
-      `https://rebrickable.com/api/v3/lego/sets/${setNum}-1/parts/?key=${process.env.REACT_APP_API_KEY}&inc_part_details=1&inc_color_details=0`
+      `https://rebrickable.com/api/v3/lego/sets/${setNum}-1/parts/?key=${process.env.REACT_APP_API_KE}&inc_part_details=1&inc_color_details=0`
     )
       .then((response) => response.json())
-      .then((jsonResponse) => {
-        if (jsonResponse) {
+      .then(
+        (jsonResponse) => {
+          console.log(jsonResponse);
+          if (!jsonResponse.results) {
+            //why does this even run this first callback? shouldn't it go to catch?
+            throw new Error(jsonResponse.detail);
+          }
+          //not catching here for some reason - need to catch in the list render
           const newParts = jsonResponse.results.map((result) => {
             return {
               id: result.id,
@@ -22,10 +28,14 @@ export default function BuySet({ addOrUpdate }) {
           });
           console.log(newParts);
           addOrUpdate(newParts);
+        },
+        (error) => {
+          throw error;
         }
-      })
+      )
       .catch((error) => {
-        throw new Error(error);
+        console.log("hi from .catch");
+        throw error;
       });
   }
   return (

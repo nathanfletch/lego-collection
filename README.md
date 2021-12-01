@@ -6,6 +6,10 @@
 
 - Love legos like me? This app will help you track your lego parts and update your collection automatically just by entering the lego set number which you can find on the box.
 
+## Components
+
+<p align="center"><img src="./components.drawio.png"></p>
+
 ## Technologies Used
 
 - Javascript
